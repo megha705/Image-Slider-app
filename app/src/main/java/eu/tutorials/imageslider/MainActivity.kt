@@ -45,6 +45,16 @@ class MainActivity : AppCompatActivity() {
         viewPager2?.registerOnPageChangeCallback(object:ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
+                if (position == 0){
+                    binding.buttonPrev.isEnabled = false
+                }else{
+                    binding.buttonPrev.isEnabled = true
+                binding.buttonPrev.setOnClickListener {
+                    viewPager2?.currentItem?.let {
+                        viewPager2?.setCurrentItem(it - 1, false)
+                    }
+                }
+                }
                 if(position == slides.size - 1){
                     binding.buttonNext.text = "Finish"
                     binding.buttonNext.setOnClickListener {
@@ -71,8 +81,9 @@ class MainActivity : AppCompatActivity() {
                 if (it.currentItem == slides.size-1){
                     it.currentItem = 0
 
-                }
+                }else {
                     it.currentItem = it.currentItem.plus(1)
+                }
 
             }
         }
